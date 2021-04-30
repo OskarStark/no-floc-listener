@@ -27,9 +27,9 @@ final class NoFlocListenerTest extends TestCase
      */
     public function getSubscribedEvents(): void
     {
-        self::assertSame(
+        static::assertSame(
             [
-                ResponseEvent::class => 'addPermissionsPolicyHeader',
+                ResponseEvent::class => 'onKernelResponse',
             ],
             NoFlocListener::getSubscribedEvents()
         );
@@ -49,12 +49,12 @@ final class NoFlocListenerTest extends TestCase
             $response
         );
 
-        self::assertFalse($event->getResponse()->headers->has('permissions-policy'));
+        static::assertFalse($event->getResponse()->headers->has('permissions-policy'));
 
         (new NoFlocListener())->onKernelResponse($event);
 
-        self::assertTrue($event->getResponse()->headers->has('permissions-policy'));
-        self::assertSame(
+        static::assertTrue($event->getResponse()->headers->has('permissions-policy'));
+        static::assertSame(
             'interest-cohort=()',
             $event->getResponse()->headers->get('permissions-policy')
         );
