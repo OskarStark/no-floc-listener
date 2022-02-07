@@ -45,7 +45,7 @@ final class NoFlocListenerTest extends TestCase
         $event = new ResponseEvent(
             $this->createMock(HttpKernelInterface::class),
             Request::create('/'),
-            HttpKernelInterface::MASTER_REQUEST,
+            HttpKernelInterface::MAIN_REQUEST,
             $response
         );
 
