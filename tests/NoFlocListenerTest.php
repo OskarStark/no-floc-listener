@@ -42,10 +42,14 @@ final class NoFlocListenerTest extends TestCase
     {
         $response = new Response();
 
+        $requestType = defined('Symfony\Component\HttpKernel\HttpKernelInterface::MAIN_REQUEST')
+            ? HttpKernelInterface::MAIN_REQUEST
+            : HttpKernelInterface::MASTER_REQUEST;
+
         $event = new ResponseEvent(
             $this->createMock(HttpKernelInterface::class),
             Request::create('/'),
-            HttpKernelInterface::MAIN_REQUEST,
+            $requestType,
             $response
         );
 
